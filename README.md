@@ -1,4 +1,4 @@
-# RSX CanSat 2T4-2T5 Designs 
+# RSX CanSat 2T5-2T6 Designs 
 
 <div style="display: flex; gap: 20px; align-items: center;">
   <img src="competition_documentation/team_assets/mission_patch.png" alt="mission_patch" width="120"/>
