@@ -1,4 +1,4 @@
-# RSX CanSat 2T4-2T5 Designs 
+# RSX CanSat 2T5-2T6 Designs 
 
 <div style="display: flex; gap: 20px; align-items: center;">
   <img src="competition_documentation/team_assets/mission_patch.png" alt="mission_patch" width="120"/>
@@ -24,3 +24,4 @@ This repository is designed to manage the files made by the CanSat Team under th
 - 📅 June 4-7, 2026
 - 📍 Monterey, Virginia, United States
 - 📃 [Mission document] (CanSat_Mission_Guide_2026c.pdf)
+- 📃 [Mission Document](CanSat_Mission_Guide_2026.pdf)
