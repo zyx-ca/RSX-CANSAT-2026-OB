@@ -7,7 +7,7 @@
 </div>
 <br>
 
-This repository is designed to manage the files made by the CanSat Team under the Robotics for Space eXploration (RSX) design team at the University of Toronto. 
+This repository contains all files created by the Aerial Team of the Robotics for Space eXploration (RSX) design team at the University of Toronto, supporting our entry in the 2026 CanSat Competition for the 2025-2026 design cycle.
 
 **Competition Team Members:**
 - Adam Kabbara | CanSat Team Lead
@@ -23,4 +23,9 @@ This repository is designed to manage the files made by the CanSat Team under th
 **CanSat Competition:**
 - 📅 June 4-7, 2026
 - 📍 Monterey, Virginia, United States
+- 🧑‍🚀 [American Astronautical Society (AAS)](https://cansatcompetition.com/winners.html)
 - 📃 [Mission Document](CanSat_Mission_Guide_2026c.pdf)
+
+**RSX CanSat 2T4-2T5**
+- 🏆 2025 Competiton Results: [5th Place Internationally](https://cansatcompetition.com/winners.html)
+- 💻 GitHub Repo: [RSX-CANSAT-2025](https://github.com/adam-kabbara/RSX-CANSAT-2025)
