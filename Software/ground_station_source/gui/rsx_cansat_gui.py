@@ -7,6 +7,7 @@ Version: 1.4
 TODO:  
 - graph should auto scroll?
 - remove command log horizontal scrolling (idk how)
+- Label logs and divide views (mb new window?)
 """
 import sys
 import webbrowser
@@ -732,6 +733,10 @@ class GroundStationApp(QMainWindow):
         log_title.setAlignment(Qt.AlignmentFlag.AlignCenter)
         log_title.setFont(graph_sidebar_font)
 
+        error_title = QLabel("Error Log")
+        error_title.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        error_title.setFont(graph_sidebar_font)
+
         self.gui_log = QListWidget()
         self.gui_log.setSelectionMode(QAbstractItemView.SelectionMode.NoSelection)
         self.gui_log.setEditTriggers(QAbstractItemView.EditTrigger.NoEditTriggers)
@@ -745,8 +750,24 @@ class GroundStationApp(QMainWindow):
             }
         """)
 
+        self.error_log = QListWidget()
+        self.error_log.setSelectionMode(QAbstractItemView.SelectionMode.NoSelection)
+        self.error_log.setEditTriggers(QAbstractItemView.EditTrigger.NoEditTriggers)
+        self.error_log.setFocusPolicy(Qt.FocusPolicy.NoFocus)
+        self.error_log.setStyleSheet("""
+            QListWidget {
+                font-size: 18px;
+                background-color: #dcdcdc;
+                border-radius: 6px;
+                padding: 3px;
+            }
+        """)
+
         log_layout.addWidget(log_title)
         log_layout.addWidget(self.gui_log)
+
+        log_layout.addWidget(error_title)
+        log_layout.addWidget(self.error_log)
 
         grid_layout.setColumnStretch(2,1)
 
@@ -954,11 +975,16 @@ class GroundStationApp(QMainWindow):
         super().resizeEvent(event)
         self.get_log_overlay.setGeometry(self.rect())
 
+    # Identify and divide outputs
     def update_gui_log(self, msg, color="black"):
+        if color == "red":
+            target_log = self.error_log
+        else:
+            target_log = self.gui_log
         log_item = QListWidgetItem(f"{QTime.currentTime().toString('h:mm AP')}     {msg}")
         log_item.setForeground(QColor(color))
-        self.gui_log.addItem(log_item)
-        self.gui_log.scrollToBottom()
+        target_log.addItem(log_item)
+        target_log.scrollToBottom()
 
     # Change what buttons are shown in the commands box
     def command_group_change_buttons(self, mode):
@@ -1291,6 +1317,7 @@ class GroundStationApp(QMainWindow):
     
     def reset_mission(self):     
         self.gui_log.clear()
+        self.error_log.clear()
         for plotter in self.plotters:
                 plotter.reset_plot()
         self.__csv_file.seek(0)
