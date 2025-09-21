@@ -8,6 +8,7 @@ TODO:
 - graph should auto scroll?
 - remove command log horizontal scrolling (idk how)
 - Label logs and divide views (mb new window?)
+- Separate CANSAT & Local msgs
 """
 import sys
 import webbrowser
@@ -293,7 +294,8 @@ class GroundStationApp(QMainWindow):
         self.__last_gyro_r                  = 0.0
         self.__last_gyro_p                  = 0.0
         self.__last_gyro_y                  = 0.0
-
+        self.__log_repeat_count              = 0
+        self.__last_msg, self.__last_color = None, None
         self.setWindowTitle("CANSAT Ground Station")
         self.setWindowIcon(QIcon('icon.png'))
 
@@ -981,9 +983,23 @@ class GroundStationApp(QMainWindow):
             target_log = self.error_log
         else:
             target_log = self.gui_log
-        log_item = QListWidgetItem(f"{QTime.currentTime().toString('h:mm AP')}     {msg}")
-        log_item.setForeground(QColor(color))
-        target_log.addItem(log_item)
+        current_time = QTime.currentTime().toString('h:mm AP')
+        # logic for repeated msgs
+        if msg == self.__last_msg and color == self.__last_color:
+            self.__log_repeat_count += 1
+            if target_log.count() > 0:
+                # Update last log item
+                last_item = target_log.item(target_log.count() - 1)
+                repeat_count = f"[{self.__log_repeat_count}] " if self.__log_repeat_count > 1 else ""
+                last_item.setText(f"{current_time}     {repeat_count}{msg}")
+        else:
+            self.__log_repeat_count = 1
+            repeat_count = ""
+            log_item = QListWidgetItem(f"{current_time}     {repeat_count}{msg}")
+            log_item.setForeground(QColor(color))
+            target_log.addItem(log_item)
+            self.__last_msg, self.__last_color = msg, color
+
         target_log.scrollToBottom()
 
     # Change what buttons are shown in the commands box
